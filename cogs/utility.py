@@ -272,10 +272,11 @@ class Utils:
             js = r.json()
         except json.decoder.JSONDecodeError:
             return await ctx.send(resolve_emoji('ERROR', ctx) + " I-I'm sorry! Something happened with the api.")
+        result = js['result']
         em = discord.Embed(title="Expression Evaluation", color=ctx.message.author.color)
         em.add_field(name="Operation", value=js['operation'], inline=False)
         em.add_field(name="Expression", value=js['expression'], inline=False)
-        em.add_field(name="Result", value=js['result'], inline=False)
+        em.add_field(name="Result", value= result if result else 'No result', inline=False)
         em.set_footer(text="Requested by " + str(ctx.message.author))
         em.timestamp = datetime.datetime.now()
         await ctx.send(embed=em)
